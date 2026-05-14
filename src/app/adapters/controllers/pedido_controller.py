@@ -1,24 +1,35 @@
+from src.app.frameworks.database.memory_database import MemoryDatabase
+from src.app.adapters.repositories.memory_pedido_repository import MemoryPedidoRepository
 from src.app.use_cases.criar_pedido import CriarPedido
-from src.app.dtos.criar_pedido_input_dto import CriarPedidoInputDTO
+from src.app.adapters.controllers.pedido_controller import PedidoController
 from src.app.presenters.pedido_presenter import PedidoPresenter
 
-class PedidoController:
-    def __init__(self, criar_pedido_use_case: CriarPedido, presenter: PedidoPresenter):
-        self.criar_pedido_use_case = criar_pedido_use_case
-        self.presenter = presenter
+def main() -> None:
+    database = MemoryDatabase()
+    
+    pedido_gateway = MemoryPedidoRepository(database)
+    
+    criar_pedido_use_case = CriarPedido(pedido_gateway)
+    
+    presenter = PedidoPresenter()
+    
+    controller = PedidoController(
+        criar_pedido_use_case=criar_pedido_use_case,
+        presenter=presenter
+    )
 
-    def criar_pedido(self, cliente: str, valor_original: float, tipo_desconto: str):
-        input_dto = CriarPedidoInputDTO(
-            cliente=cliente,
-            valor_original=valor_original,
-            tipo_desconto=tipo_desconto
-        )
+    pedido1 = controller.criar_pedido("Cliente A", 100, "normal")
+    pedido2 = controller.criar_pedido("Cliente B", 200, "premium")
+    pedido3 = controller.criar_pedido("Cliente C", 300, "vip")
 
-        output_dto = self.criar_pedido_use_case.executar(input_dto)
+    print("Pedidos criados:")
+    print(pedido1)
+    print(pedido2)
+    print(pedido3)
 
-        return self.presenter.apresentar(output_dto)
+    print("\nPedidos salvos:")
+    for pedido in controller.listar_pedidos():
+        print(pedido)
 
-    def listar_pedidos(self):
-        output_dtos = self.criar_pedido_use_case.listar_pedidos()
-
-        return self.presenter.apresentar_lista(output_dtos)
+if __name__ == "__main__":
+    main()
