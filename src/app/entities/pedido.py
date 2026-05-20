@@ -1,4 +1,4 @@
-from src.app.entities.desconto import IDesconto
+from desconto_app.src.app.entities.desconto import IDesconto
 
 class Pedido:
     def __init__(self, cliente: str, valor_original: float, desconto: IDesconto):

@@ -1,5 +1,5 @@
 import abc
-from src.app.entities.pedido import Pedido
+from desconto_app.src.app.entities.pedido import Pedido
 
 class IPedidoGateway(abc.ABC):
         @abc.abstractmethod
