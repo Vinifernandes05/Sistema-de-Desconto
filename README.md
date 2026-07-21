@@ -1,4 +1,4 @@
-# 💼💻 Sistema de Descontos em Pedidos (Clean Architecture)
+# 💼💻 Sistema de Descontos em Pedidos
 
 ## 📌 Sobre o Projeto
 
