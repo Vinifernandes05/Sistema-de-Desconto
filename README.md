@@ -57,8 +57,8 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 | Tipo de Desconto | Percentual |
 |-------------------|------------|
 | Normal | 10% |
-| Premium | 30% |
 | VIP | 20% |
+| Premium | 30% |
 
 ---
 
